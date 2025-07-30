@@ -36,6 +36,8 @@ La aplicación estará disponible en `http://localhost:8504`
 - **Conteo de instancias**: Estadísticas de patrones encontrados vs instancias reales
 - **Configuraciones personalizadas**: Upload de archivos YAML o editor de texto
 - **Resultados detallados**: Métricas encontradas, faltantes y estadísticas
+- **Visualización de configuración**: Contenido YAML visible y editable
+- **Descarga de reportes**: Markdown y JSON con estadísticas completas
 
 ### ✅ Extracción de Métricas
 - **Extracción automática**: Convierte instancias específicas a patrones con wildcards
@@ -51,6 +53,7 @@ La aplicación estará disponible en `http://localhost:8504`
 - **Estadísticas JSON**: Elementos, claves, profundidad, tamaño
 - **Sintaxis highlighting**: JSON formateado con colores
 - **Enlace a JSON Crack**: Integración con herramienta de diagramas externos
+- **Previsualización JSON**: Editor para ver y modificar JSON antes de procesar
 
 ### ✅ Configuración y Gestión
 - **Visor de configuraciones**: Visualización dinámica de archivos YAML
@@ -63,6 +66,8 @@ La aplicación estará disponible en `http://localhost:8504`
 - **Múltiples descargas**: Descarga con diferentes nombres
 - **Control de proceso**: Botones para nueva conversión o volver al inicio
 - **Reset completo**: Limpia todo el estado de la aplicación
+- **Botón Back to Welcome**: Reset completo y posicionamiento en Welcome
+- **Estado persistente**: Mantiene resultados para múltiples descargas
 
 ---
 
@@ -265,13 +270,6 @@ rules:
 3. **Analizar patrones** de implementación de métricas
 4. **Comparar configuraciones** entre diferentes dispositivos
 
----
-
-## 📚 Documentación
-
-- **PRD**: `docs/json_reports_tools_prd.md` - Especificaciones del producto
-- **Reglas de validación**: `config/validation_rules.json` - Configuración de validación
-- **Métricas TR-181**: `config/wei_tr181_metrics.md` - Especificaciones de métricas
 
 ---
 
@@ -346,6 +344,21 @@ pipenv run python scripts/run_tests.py
 
 ## 🚀 Despliegue
 
+### Docker (Recomendado)
+```bash
+# Verificar que todo esté listo
+./scripts/verify-docker.sh
+
+# Construir la imagen
+./scripts/docker-build.sh
+
+# Ejecutar con Docker
+docker run -p 8504:8504 json-reports-tools:latest
+
+# O usar docker-compose
+docker-compose up
+```
+
 ### Local
 ```bash
 pipenv install
@@ -359,10 +372,53 @@ pipenv run streamlit run app.py
 
 ---
 
+## 🐳 Docker
+
+### Características del Contenedor
+- **Imagen base**: Python 3.10-slim
+- **Puerto**: 8504
+- **Usuario**: streamlit (no-root)
+- **Health check**: Verificación automática de salud
+- **Volúmenes**: Configuración montada como solo lectura
+
+### Archivos de Docker
+- `Dockerfile`: Configuración del contenedor
+- `docker-compose.yml`: Orquestación con Docker Compose
+- `.dockerignore`: Optimización del build
+- `scripts/docker-build.sh`: Script de construcción
+- `scripts/verify-docker.sh`: Script de verificación
+
+### Comandos Útiles
+```bash
+# Verificar configuración
+./scripts/verify-docker.sh
+
+# Construir imagen
+./scripts/docker-build.sh [tag]
+
+# Ejecutar contenedor
+docker run -p 8504:8504 json-reports-tools:latest
+
+# Ejecutar con docker-compose
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Parar contenedor
+docker-compose down
+
+# Reconstruir imagen
+docker-compose build --no-cache
+```
+
+---
+
 ## 📋 Estado del Proyecto
 
 **✅ Completado**: Todas las funcionalidades principales implementadas y probadas
 **✅ Testing**: Sistema completo de tests unitarios e integración
 **✅ Documentación**: README actualizado con todas las funcionalidades
 **✅ Configuración**: Gestión de dependencias con Pipenv
+**✅ Docker**: Contenedor Docker optimizado y listo para producción
 

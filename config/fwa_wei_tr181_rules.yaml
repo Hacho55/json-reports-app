@@ -1,8 +1,8 @@
 # Wei TR-181 Validation Rules
 # Broadband Forum TR-181 Device Data Model validation rules
 
-name: "Wei TR-181 Metrics"
-description: "Validation rules for TR-181 device data model metrics"
+name: "FWA Wei TR-181 Metrics"
+description: "Validation rules for FWA case with TR-181 device data model metrics"
 version: "1.0"
 
 rules:
